@@ -8,7 +8,8 @@ module.exports = {
       secondary: "#B3B3B3",
       semiTransparentBlue: "#9ACDFF",
       darkBlue: "#2C72B8",
-      white: "#FFFFFF"
+      white: "#FFFFFF",
+      black: "#000000"
     }
   },
   plugins: [],
