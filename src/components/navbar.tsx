@@ -1,14 +1,28 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import NavItem from '../widgets/navItem'
 import PokemonLogo from "../assets/Pokemon Logo.png"
-
+import { useNavigate } from "react-router-dom"
 export default function Navbar() {
-
+    const navigate = useNavigate()
     const [activeItem, setActiveItem] = useState("Home");
 
     const handleItemClick = (item: string) => {
-      setActiveItem(item);
+      navigate(item)
     };
+    useEffect(()=>{
+        let link = (window.location.pathname);
+        switch(link){
+            case "/":
+                setActiveItem("Home");
+                break;
+            case "/tasks":
+                setActiveItem("Battle");
+                break;
+            case "/profile":
+                setActiveItem("History");
+                break;
+        }
+    },[])
 
   return (
     <nav className="bg-white border-gray-200  w-[90%] m-auto rounded-xl my-4 ">
@@ -22,9 +36,9 @@ export default function Navbar() {
     </button>
     <div className="hidden w-full md:block md:w-auto" id="navbar-default">
       <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-        <NavItem title="Home" activeItem={activeItem} handleClick={handleItemClick}/>
-        <NavItem title="Battle" activeItem={activeItem} handleClick={handleItemClick}/>
-        <NavItem title="History" activeItem={activeItem} handleClick={handleItemClick}/>
+        <NavItem link="" title="Home" activeItem={activeItem} handleClick={handleItemClick}/>
+        <NavItem link="battle" title="Battle" activeItem={activeItem} handleClick={handleItemClick}/>
+        <NavItem link="history" title="History" activeItem={activeItem} handleClick={handleItemClick}/>
 
 
       </ul>
