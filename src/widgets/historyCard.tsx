@@ -18,10 +18,17 @@ const HistoryCard:React.FC<Props> =({data, index})=> {
 
             let winner: PokemonType = (data?.pokemonOne.base_experience > data?.pokemonTwo.base_experience)? data?.pokemonOne: data?.pokemonTwo
             setWinnerPokemon(winner);
-            setDidWin(data.selectedPokemon.base_experience > winner.base_experience)
         }
 
     },[])
+
+    useEffect(()=>{
+        if(data && winnerPokemon){
+            console.log(winnerPokemon.base_experience);
+            console.log(data.selectedPokemon.base_experience)
+            setDidWin(winnerPokemon.base_experience <= data.selectedPokemon.base_experience)
+        }
+    },[winnerPokemon])
   return (
     <div className='flex h-[90px] border-2 border-white rounded-3xl justify-between items-center px-5'>
         <h2 className='text-white text-3xl'>{index+1+ "."}</h2>
