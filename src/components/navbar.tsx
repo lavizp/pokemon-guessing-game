@@ -18,7 +18,7 @@ export default function Navbar() {
             case "/battle":
                 setActiveItem("Battle");
                 break;
-            case "/profile":
+            case "/history":
                 setActiveItem("History");
                 break;
         }

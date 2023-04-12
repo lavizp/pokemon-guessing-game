@@ -5,8 +5,11 @@ import Navbar from '../components/navbar'
 import { PokemonType } from '../interfaces/Pokemon';
 import PokemonSelection from '../widgets/pokemonSelection';
 import vsIcon from "../assets/Vs Icon.png"
-
+import { setHistoryData } from '../services/history';
+import { HistoryType } from '../interfaces/history';
 import * as api from "../api/index"
+
+
 function BattlePage() {
     const [pokemonOne, setPokemonOne] = useState<PokemonType>();
     const [pokemonTwo, setPokemonTwo] = useState<PokemonType>();
@@ -32,7 +35,14 @@ function BattlePage() {
             }else{
                 setGameOver("You Lost")
             }
-
+            let historyData:HistoryType = {
+                date: "asd",
+                time: "asd",
+                pokemonOne: pokemonOne,
+                pokemonTwo: pokemonTwo,
+                selectedPokemon: selectedPokemon
+            }
+            setHistoryData(historyData)
     }
   return (
     <>
