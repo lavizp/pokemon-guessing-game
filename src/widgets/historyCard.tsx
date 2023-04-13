@@ -24,8 +24,6 @@ const HistoryCard:React.FC<Props> =({data, index})=> {
 
     useEffect(()=>{
         if(data && winnerPokemon){
-            console.log(winnerPokemon.base_experience);
-            console.log(data.selectedPokemon.base_experience)
             setDidWin(winnerPokemon.base_experience <= data.selectedPokemon.base_experience)
         }
     },[winnerPokemon])
