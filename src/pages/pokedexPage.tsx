@@ -17,6 +17,9 @@ function PokedexPage() {
         let {data} = await api.getAllPokemons();
         return data.results
     }
+    const onPokemonButtonClick =(name: string, url: string)=>{
+      setSelectedProfile({name,url})
+    }
     const {data, status} = useQuery('pokemon_list', getPokemons)
     if(status === "loading"){
         return <h1>Loading...</h1>
@@ -55,13 +58,18 @@ function PokedexPage() {
 
     {    
         data.slice(0,20).map((item: {name: string, url: string})=>{
-            return <PokemonInfoCard pokemon={item}/>
+            return <PokemonInfoCard pokemon={item} onclick={onPokemonButtonClick}/>
  
         })
     }    
     </div>
     :
-    <PokemonInfoFull pokemon={selectedProfile}/>
+    <>
+      <PokemonInfoFull pokemon={selectedProfile}/>
+      <div className='flex justify-center'>
+        <button onClick={()=> setSelectedProfile(undefined)} className='px-5 py-1 mt-5 border-2 border-white text-white rounded-3xl mb-10'>Back</button>
+      </div>
+     </>
     }
         </div>
     </div>
