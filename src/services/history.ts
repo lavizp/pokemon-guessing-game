@@ -1,6 +1,5 @@
 import { HistoryType } from "../interfaces/history"
-
-export const getHistoryData = ()=>{
+export const getHistoryData = ():HistoryType[]=>{
     let data = localStorage.getItem("historyData",);
     if(data){
             return JSON.parse(data);

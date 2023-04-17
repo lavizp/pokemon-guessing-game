@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Navbar from '../components/navbar'
-import { PokemonType } from '../interfaces/Pokemon';
+import { PokemonBaseType } from '../interfaces/Pokemon';
 import { useQuery } from 'react-query';
 import LiveSearch from '../components/liveSearch';
 import PokemonInfoCard from '../widgets/pokemonInfoCard';
@@ -8,14 +8,11 @@ import PokemonInfoFull from '../widgets/pokemonInfoFull';
 import * as api from "../api/index"
 
 function PokedexPage() {
-    const [results, setResults] = useState([]);
-    const [selectedProfile, setSelectedProfile] = useState<{
-        name: string;
-        url: string;
-      }>();
+    const [results, setResults] = useState<PokemonBaseType[]>([]);
+    const [selectedProfile, setSelectedProfile] = useState<PokemonBaseType>();
       let getPokemons = async () => {
         let {data} = await api.getAllPokemons();
-        return data.results
+        return data.results as PokemonBaseType[]
     }
     const onPokemonButtonClick =(name: string, url: string)=>{
       setSelectedProfile({name,url})
@@ -31,7 +28,7 @@ function PokedexPage() {
         const { target } = e;
         if (!target.value.trim()) return setResults([]);
     
-        const filteredValue: any = data.filter((profile:any) =>
+        const filteredValue: any = data?.filter((profile:any) =>
           profile.name.toLowerCase().startsWith(target.value)
         );
         setResults(filteredValue);
@@ -57,7 +54,7 @@ function PokedexPage() {
     <div className='flex flex-wrap gap-2 justify-between mt-10'>
 
     {    
-        data.slice(0,20).map((item: {name: string, url: string})=>{
+        data?.slice(0,20).map((item: {name: string, url: string})=>{
             return <PokemonInfoCard pokemon={item} onclick={onPokemonButtonClick}/>
  
         })

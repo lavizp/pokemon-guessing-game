@@ -2,7 +2,7 @@ import React, {useEffect,useState} from 'react'
 import {motion} from "framer-motion"
 
 import Navbar from '../components/navbar'
-import { PokemonType } from '../interfaces/Pokemon';
+import { PokemonType, PokemonBaseType } from '../interfaces/Pokemon';
 import PokemonSelection from '../widgets/pokemonSelection';
 import vsIcon from "../assets/Vs Icon.png"
 import { setHistoryData } from '../services/history';
@@ -22,7 +22,7 @@ function BattlePage() {
 
     let getPokemons = async () => {
         let {data} = await api.getAllPokemons();
-        return data.results
+        return data.results as PokemonType[]
     }
     const {data, status} = useQuery('pokemons', getPokemons)
     if(status === "loading"){

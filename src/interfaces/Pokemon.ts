@@ -16,3 +16,8 @@ export interface PokemonType{
         }
     }]
 }
+
+export interface PokemonBaseType{
+    name: string
+    url: string
+}
