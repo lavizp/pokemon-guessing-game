@@ -21,6 +21,9 @@ export default function Navbar() {
             case "/history":
                 setActiveItem("History");
                 break;
+            case "/pokedex":
+              setActiveItem("Pokedex");
+              break;
         }
     },[])
 
@@ -39,6 +42,7 @@ export default function Navbar() {
         <NavItem link="/" title="Home" activeItem={activeItem} handleClick={handleItemClick}/>
         <NavItem link="/battle" title="Battle" activeItem={activeItem} handleClick={handleItemClick}/>
         <NavItem link="/history" title="History" activeItem={activeItem} handleClick={handleItemClick}/>
+        <NavItem link="/pokedex" title="Pokedex" activeItem={activeItem} handleClick={handleItemClick}/>
 
 
       </ul>

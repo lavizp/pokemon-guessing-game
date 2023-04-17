@@ -1,7 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 html{
     background-color: #2C72B8;
+    font-family: 'Kanit';
+    font-style: normal;
 }

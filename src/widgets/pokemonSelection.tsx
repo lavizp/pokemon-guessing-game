@@ -32,7 +32,6 @@ const PokemonSelection: React.FC<Props>=({pokemons, setPokemon, selectedPokemon,
             let {data}: any = await api.getPokemonData(selectedProfile?.url)
             setCurrentPokemon(data)
             setPokemon(data)
-            console.log(data.sprites.back_default)
         }
     }
     useEffect(()=>{

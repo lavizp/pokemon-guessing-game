@@ -13,6 +13,6 @@ export const setHistoryData = (newData: HistoryType) =>{
     console.log(newData)
     let data = getHistoryData();
     console.log(data)
-    let newDatas = [...data, newData]
+    let newDatas = [newData, ...data]
     localStorage.setItem("historyData",JSON.stringify(newDatas))
 }
