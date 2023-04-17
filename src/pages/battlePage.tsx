@@ -8,6 +8,7 @@ import vsIcon from "../assets/Vs Icon.png"
 import { setHistoryData } from '../services/history';
 import { HistoryType } from '../interfaces/history';
 import * as api from "../api/index"
+import { getDate,getTime } from '../services/getDateAndTime';
 import { useQuery } from 'react-query';
 
 function BattlePage() {
@@ -15,6 +16,8 @@ function BattlePage() {
     const [pokemonTwo, setPokemonTwo] = useState<PokemonType>();
     const [selectedPokemon, setSelectedPokemon] = useState<PokemonType>()
     const [gameOver, setGameOver] = useState("")
+    const [error, setError] = useState("")
+
 
 
     let getPokemons = async () => {
@@ -28,10 +31,22 @@ function BattlePage() {
     if(status ==="error"){
         return <h1>Error</h1>
     }
+    const showError = (error: string) =>{
+        setError(error)
+        setTimeout(() => {
+            setError("")
+        }, 5000);
+    }
 
     let battleHandler = () =>{
-            if(!((pokemonOne && pokemonTwo))) return;
-            if(!selectedPokemon) return;
+            if(!((pokemonOne && pokemonTwo))) {
+                showError("Select Two Pokemons")
+                return;
+            }
+            if(!selectedPokemon) {
+                showError("Click on any one Pokemon")
+                return;
+            }
             let winnerPokemon = (pokemonOne?.base_experience > pokemonTwo?.base_experience)? pokemonOne : pokemonTwo;
             if(winnerPokemon.name === selectedPokemon?.name){
                 setGameOver("You Won")
@@ -39,8 +54,8 @@ function BattlePage() {
                 setGameOver("You Lost")
             }
             let historyData:HistoryType = {
-                date: "asd",
-                time: "asd",
+                date: getDate(),
+                time: getTime(),
                 pokemonOne: pokemonOne,
                 pokemonTwo: pokemonTwo,
                 selectedPokemon: selectedPokemon
@@ -75,8 +90,9 @@ function BattlePage() {
                 <img src={vsIcon} alt="VS" className='object-contain'/>
                 <PokemonSelection pokemons={data} setPokemon={setPokemonTwo} selectedPokemon={selectedPokemon} setSelectedPokemon={setSelectedPokemon}/>
             </div>
-            <div className='flex justify-center w-full'>
-                <button className=' border-semiTransparentBlue rounded-full border-2 px-10 py-3 m-10 text-semiTransparentBlue text-xl' onClick={battleHandler}>Start Battle</button>
+            <div className='flex justify-center w-full flex-col items-center'>
+                {error.length > 0 && <p className='text-red'>Error: {error}</p>}
+                <button className=' border-semiTransparentBlue rounded-full border-2 px-10 py-3 mx-10 mb-10 text-semiTransparentBlue text-xl' onClick={battleHandler}>Start Battle</button>
             </div>
         </>
     }

@@ -10,7 +10,8 @@ module.exports = {
       semiTransparentBlue: "#9ACDFF",
       darkBlue: "#2C72B8",
       white: "#FFFFFF",
-      black: "#000000"
+      black: "#000000",
+      red: "#F15354"
     }
   },
   plugins: [],

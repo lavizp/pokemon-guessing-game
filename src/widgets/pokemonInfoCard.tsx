@@ -2,6 +2,7 @@ import React from 'react'
 import * as api from "../api/index"
 import { useQuery } from 'react-query';
 import { PokemonType } from '../interfaces/Pokemon'
+import { getDate,getTime } from '../services/getDateAndTime';
 interface Props{
     pokemon: {
         name: string
@@ -18,10 +19,16 @@ const PokemonInfoCard: React.FC<Props>=({pokemon, onclick})=> {
     }
     const {data, status} = useQuery(pokemon.name, getPokemons)
     if(status === "loading"){
-        return <h1>Loading...</h1>
+        return <>
+        <div className='bg-white h-[250px] w-[220px] rounded-2xl flex  justify-center items-center'>
+            <p>Loading...</p>
+        </div>
+        </>
     }
     if(status ==="error"){
-        return <h1>Error</h1>
+        return <div className='bg-white h-[250px] w-[220px] rounded-2xl flex  justify-center items-center'>
+        <p>Error..</p>
+    </div>
     }
   return (
     <div className='bg-white h-[250px] w-[220px] rounded-2xl flex flex-col justify-center items-center' onClick={()=> onclick(pokemon.name, pokemon.url)}>
