@@ -1,11 +1,11 @@
 import React, {useEffect,useState} from 'react'
 import LiveSearch from '../components/liveSearch';
-import { PokemonType } from '../interfaces/Pokemon';
+import { PokemonType,PokemonBaseType } from '../interfaces/Pokemon';
 import * as api from "../api/index"
 import PokemonBattleCard from '../components/pokemonBattleCard';
 
 interface Props{
-    pokemons: PokemonType[],
+    pokemons: PokemonType[] | undefined,
     selectedPokemon: PokemonType | undefined
     setPokemon:(pokemon: PokemonType) => void
     setSelectedPokemon:(pokemon: PokemonType | undefined) => void
@@ -13,16 +13,13 @@ interface Props{
 
 const PokemonSelection: React.FC<Props>=({pokemons, setPokemon, selectedPokemon,setSelectedPokemon}) =>{
     const [results, setResults] = useState([]);
-    const [selectedProfile, setSelectedProfile] = useState<{
-        name: string;
-        url: string;
-      }>();
+    const [selectedProfile, setSelectedProfile] = useState<PokemonBaseType>();
       const [currentPokemon, setCurrentPokemon] = useState<PokemonType | undefined>()
       const handleChange = (e:any) => {
         const { target } = e;
         if (!target.value.trim()) return setResults([]);
     
-        const filteredValue: any = pokemons.filter((profile:any) =>
+        const filteredValue: any = pokemons?.filter((profile:any) =>
           profile.name.toLowerCase().startsWith(target.value)
         );
         setResults(filteredValue);
